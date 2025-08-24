@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>نظام التحويل الذكي</title>
+  <script>
+    async function redirect() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+
+      if (!id) {
+        document.body.innerHTML = "<h2 style='text-align:center;color:red;'>❌ لم يتم اختيار رابط</h2>";
+        return;
+      }
+
+      try {
+        // تحميل ملف الروابط
+        let res = await fetch("links.json");
+        let links = await res.json();
+
+        if (!links[id]) {
+          document.body.innerHTML = "<h2 style='text-align:center;color:red;'>❌ الرابط غير موجود</h2>";
+          return;
+        }
+
+        const { original, backup } = links[id];
+
+        // تجربة الرابط الأصلي
+        let check = await fetch(original, { method: "HEAD" });
+        if (check.ok) {
+          window.location.href = original;
+        } else {
+          window.location.href = backup;
+        }
+      } catch (e) {
+        document.body.innerHTML = "<h2 style='text-align:center;color:red;'>⚠️ خطأ في تحميل الروابط</h2>";
+      }
+    }
+
+    redirect();
+  </script>
+</head>
+<body>
+  <h1 style="text-align:center;">🔗 جاري التحويل...</h1>
+</body>
+</html>

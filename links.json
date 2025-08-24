@@ -1,0 +1,14 @@
+{
+  "app1": {
+    "original": "https://example.com/app1",
+    "backup": "https://backup.com/app1"
+  },
+  "app2": {
+    "original": "https://example.com/app2",
+    "backup": "https://backup.com/app2"
+  },
+  "video1": {
+    "original": "https://example.com/video1",
+    "backup": "https://backup.com/video1"
+  }
+}
